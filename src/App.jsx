@@ -9,6 +9,7 @@ import Galeria from "./componentes/Galeria"
 import fotos from './fotos.json'
 import { useState } from "react"
 import ModalZoom from "./componentes/ModalZoom"
+import Footer from "./componentes/Footer"
 
 const FundoGradiente = styled.div`
   background: linear-gradient(174.61deg, #041833 4.16%, #04244F 48%, #154580 96.76%);
@@ -25,6 +26,7 @@ const AppContainer = styled.div`
 const MainContainer = styled.main`
   display: flex;
   gap: 24px;
+  padding-bottom:50px;
 `
 
 const ConteudoGaleria = styled.section`
@@ -37,8 +39,8 @@ const App = () => {
   const [fotosDaGaleria, setFotosDaGaleria] = useState(fotos)
   const [fotoSelecionada, setFotoSelecionada] = useState(null)
   
-  const aoAlterarFavorito = (foto) => {
-    if (foto.id === fotoSelecionada?.id){
+  const aoAlternarFavorito = (foto) => {
+    if (foto.id === fotoSelecionada?.id) {
       setFotoSelecionada({
         ...fotoSelecionada,
         favorita: !fotoSelecionada.favorita
@@ -65,16 +67,17 @@ const App = () => {
             />
             <Galeria 
               aoFotoSelecionada={foto => setFotoSelecionada(foto)} 
-              aoAlterarFavorito={aoAlterarFavorito}
+              aoAlternarFavorito={aoAlternarFavorito}
               fotos={fotosDaGaleria}
             />
           </ConteudoGaleria>
         </MainContainer>
+        <Footer/>
       </AppContainer>
       <ModalZoom 
         foto={fotoSelecionada}
         aoFechar={() => setFotoSelecionada(null)}
-        aoAlterarFavorito={aoAlterarFavorito}
+        aoAlternarFavorito={aoAlternarFavorito}
       />
     </FundoGradiente>
   )
